@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eu Sou Angolano!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #e63946;
+      --secondary: #f1faee;
+      --accent: #457b9d;
+      --dark: #1d3557;
+      --shadow: 0 4px 24px rgba(0,0,0,0.15);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%), url('https://pt.123rf.com/photo_189145512_pa%C3%ADs-angola-bandeira-angola-ilustra%C3%A7%C3%A3o-vetorial.html');
+      background-size: cover;
+      background-position: center;
+      font-family: 'Roboto', Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      background: var(--secondary);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 48px 32px 40px 32px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      animation: fadeIn 1.2s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2.5rem;
+      color: var(--primary);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      text-shadow: 2px 2px 0 var(--dark), 0 4px 24px rgba(0,0,0,0.10);
+      user-select: none;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--dark);
+      margin-bottom: 32px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      margin: 12px 0;
+      padding: 16px 0;
+      font-size: 1.1rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: var(--secondary);
+      background: var(--primary);
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(230,57,70,0.10);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn:hover, .btn:focus {
+      background: var(--accent);
+      transform: translateY(-2px) scale(1.03);
+      outline: none;
+    }
+    .btn:active {
+      background: var(--dark);
+    }
+    /* Modal */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: rgba(29,53,87,0.45);
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s;
+    }
+    .modal-bg.active { display: flex; }
+    .modal {
+      background: var(--secondary);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 32px 24px 24px 24px;
+      min-width: 280px;
+      max-width: 90vw;
+      text-align: left;
+      position: relative;
+      animation: fadeIn 0.4s;
+    }
+    .modal h2 {
+      margin-top: 0;
+      color: var(--primary);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.4rem;
+      margin-bottom: 18px;
+    }
+    .close-modal {
+      position: absolute;
+      top: 12px; right: 16px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--dark);
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .slider-group {
+      margin-bottom: 18px;
+    }
+    .slider-label {
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 6px;
+      display: block;
+    }
+    .slider {
+      width: 100%;
+      accent-color: var(--primary);
+    }
+    @media (max-width: 500px) {
+      .container { padding: 24px 8px 24px 8px; }
+      .logo { font-size: 1.5rem; }
+    }
+
+    /* Quiz Area Styles */
+    .quiz-area {
+      background: #b71c1c;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 32px 16px 16px 16px;
+      max-width: 400px;
+      width: 100%;
+      margin: 0 auto;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      animation: fadeIn 1.2s cubic-bezier(.4,0,.2,1);
+    }
+    .quiz-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+    .quiz-round {
+      color: #ffe082;
+      text-shadow: 1px 1px 0 #000;
+    }
+    .quiz-score {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .quiz-question-box {
+      background: #fffde7;
+      border-radius: 16px;
+      padding: 18px 12px;
+      margin-bottom: 18px;
+      width: 100%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      color: #b71c1c;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-align: center;
+      position: relative;
+    }
+    .quiz-question-box:before {
+      content: '';
+      position: absolute;
+      left: 16px; top: -16px;
+      width: 0; height: 0;
+      border-left: 16px solid transparent;
+      border-right: 16px solid transparent;
+      border-bottom: 16px solid #fffde7;
+    }
+    .quiz-options {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      color: #b71c1c;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border: 2px solid #b71c1c;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border 0.2s;
+      min-height: 40px;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .quiz-option-label {
+      background: #ff9800;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      width: 38px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 2px solid #b71c1c;
+      user-select: none;
+    }
+    .quiz-option-text {
+      flex: 1;
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .quiz-option.correct {
+      background: #43a047;
+      color: #fff;
+      border-color: #43a047;
+    }
+    .quiz-option.incorrect {
+      background: #e53935;
+      color: #fff;
+      border-color: #e53935;
+    }
+    .quiz-option.selected:not(.correct):not(.incorrect) {
+      background: #ffe082;
+      color: #b71c1c;
+    }
+    .quiz-helps {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      width: 100%;
+      justify-content: center;
+    }
+    .help-btn {
+      background: #ff9800;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 8px 16px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      transition: background 0.2s, transform 0.1s;
+    }
+    .help-btn:disabled {
+      background: #bdbdbd;
+      color: #fff;
+      cursor: not-allowed;
+    }
+    .quiz-ad {
+      width: 100%;
+      margin-top: 8px;
+      display: flex;
+      justify-content: center;
+    }
+    .ad-box {
+      background: #fffde7;
+      color: #b71c1c;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      width: 100%;
+      max-width: 320px;
+    }
+  </style>
+</head>
+<body>
+  <div id="toastCategoria" style="display:none;position:fixed;top:24px;left:50%;transform:translateX(-50%);background:#ff9800;color:#fff;padding:12px 28px;border-radius:8px;font-weight:700;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-family:'Montserrat',sans-serif;font-size:1.1rem;letter-spacing:1px;">Categoria</div>
+  <audio id="bgMusic" src="joshua_wrong_baraka_places.unknown" autoplay loop></audio>
+  <div class="container">
+    <div class="logo">Eu Sou Angolano!</div>
+    <div class="subtitle">Quiz das Culturas e Instituições de Angola</div>
+    <button class="btn" id="playBtn">Jogar</button>
+    <button class="btn" id="settingsBtn">Configurações</button>
+    <button class="btn" id="creditsBtn">Créditos</button>
+    <button class="btn" id="exitBtn">Sair</button>
+  </div>
+
+  <!-- Área do Quiz -->
+  <div class="quiz-area" id="quizArea" style="display:none;">
+    <div class="quiz-header">
+      <span class="quiz-round" id="quizRound">1ª RONDA</span>
+      <span class="quiz-score" id="quizScore">0 pts</span>
+    </div>
+    <div class="quiz-question-box">
+      <div class="quiz-question" id="quizQuestion">Pergunta aqui...</div>
+    </div>
+    <div class="quiz-options" id="quizOptions">
+      <!-- Opções de resposta serão inseridas aqui pelo JS -->
+    </div>
+    <div class="quiz-helps">
+      <button class="help-btn" id="help5050" title="50/50">2/2</button>
+      <button class="help-btn" id="helpAudience" title="Ajuda do Público"> 👥</button>
+      <button class="help-btn" id="helpPhone" title="Ligar para um amigo"> 📞</button>
+    </div>
+    <div class="quiz-ad">
+      <div class="ad-box">ANUNCIE AQUI SUAS<br>MÚSICAS, EVENTOS E NEGÓCIOS</div>
+    </div>
+  </div>
+  
+  <!-- Modal de Configurações -->
+  <div class="modal-bg" id="modalBg">
+    <div class="modal">
+      <button class="close-modal" id="closeModalBtn">&times;</button>
+      <h2>Configurações</h2>
+      <div class="slider-group">
+        <label class="slider-label" for="volumeSlider">Volume do Som</label>
+        <input type="range" min="0" max="100" value="70" class="slider" id="volumeSlider">
+      </div>
+      <div style="color: #888; font-size: 0.95em;">(Mais opções em breve)</div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+  <script>
+    const bgMusic = document.getElementById('bgMusic');
+    bgMusic.volume = 0.7;
+  </script>
+</body>
+</html>
